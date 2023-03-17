@@ -43,11 +43,17 @@ can there be multiple pairs that add to the target -> no, see constraint
 */
 /* Time complexity = O(n^2)
    Space complexity = O(1)
+
+   first for loop is only finding NumberToFind value
+   second for loop does the comparison and valid pairing
+
+  since we are recalculating numberToFind each time
+  we can store the numberToFind in map so we don't have to loop
 */
 const twoSumBruteForce = (arr, target) => {
 	for (let i = 0; i < arr.length; i++) {
 		const numberToFind = target - arr[i];
-    // pointer 1 (i) + 1
+		// pointer 1 (i) + 1
 		for (let j = i + 1; j < arr.length; j++) {
 			if (numberToFind === arr[j]) {
 				return [i, j];
@@ -58,3 +64,19 @@ const twoSumBruteForce = (arr, target) => {
 };
 
 console.log(twoSumBruteForce([1, 3, 5], 8));
+
+const optimalTwoSum = (nums, target) => {
+	const numsMap = {};
+	for (let p = 0; p < arr.length; p++) {
+    const currentMapVal = numsMap[nums[p]]
+    // currentMapVal is undefined until there the value exists as a key in map 
+    if (currentMapVal >= 0) {
+      return [currentMapVal, p]
+    } else {
+      // add numberToFind into map
+      const numberToFind = target - nums[p]
+      numsMap[numberToFind] = p
+    }
+  }
+  return null
+};
