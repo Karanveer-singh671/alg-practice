@@ -48,7 +48,7 @@ can there be multiple pairs that add to the target -> no, see constraint
    second for loop does the comparison and valid pairing
 
   since we are recalculating numberToFind each time
-  we can store the numberToFind in map so we don't have to loop
+  we can store the numberToFind in map so we don't have to loop (cache the expression in the first for loop and remove the for loop)
 */
 const twoSumBruteForce = (arr, target) => {
 	for (let i = 0; i < arr.length; i++) {
@@ -69,7 +69,7 @@ const optimalTwoSum = (nums, target) => {
 	const numsMap = {};
 	for (let p = 0; p < arr.length; p++) {
     const currentMapVal = numsMap[nums[p]]
-    // currentMapVal is undefined until there the value exists as a key in map 
+    // currentMapVal is undefined until there the value exists as a key in map
     if (currentMapVal >= 0) {
       return [currentMapVal, p]
     } else {

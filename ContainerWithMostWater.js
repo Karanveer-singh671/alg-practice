@@ -43,11 +43,13 @@ min (a, b) x (bi - ai)
 */
 
 const containerWithMostWaterBrute = (heights) => {
-	// if array only has 1 or no elements return 0 
+	// if array only has 1 or no elements return 0
 	let maxArea = 0;
-	if (heights.length <= 1) {
-		return maxArea;
-	}
+	// we actually don't need the if check as if the array is empty it will never go into the first or second for loop
+	// same if array is length 1 it won't go in the second for loop
+	// if (heights.length <= 1) {
+	// 	return maxArea;
+	// }
 
 	for (let i = 0; i < heights.length; i++) {
 		for (let j = i + 1; j < heights.length; j++) {
@@ -62,3 +64,31 @@ const containerWithMostWaterBrute = (heights) => {
 };
 
 console.log(containerWithMostWaterBrute([7, 1, 2, 3, 9]));
+
+/*
+initialize pointers at opposite ends of the area
+we move the smaller value pointer upward because to get a larger area
+the smaller value in min calc will be the one that directly impacts area getting bigger
+ we need a larger minimum number
+*/
+
+const shiftPointersMostWater = (heights) => {
+	let a = 0;
+	let b = heights.length - 1;
+	let maxArea = 0;
+
+	while (a < b) {
+		const currentArea = Math.min(heights[a], heights[b]) * (b - a);
+		if (currentArea > maxArea) {
+			maxArea = currentArea;
+		}
+		// we want to move the smaller pointer value we'll keep going until a == b then while stops
+    // this is because smaller value we use in the min calculation directly affects area calc.
+		if (heights[a] <= heights[b]) {
+			a++;
+		} else {
+			b--;
+		}
+	}
+	return maxArea;
+};
