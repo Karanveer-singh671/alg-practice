@@ -41,21 +41,51 @@ const trappingRainWaterBrute = (heights) => {
 		let rightPointer = i;
 		let maxLeft = 0;
 		let maxRight = 0;
-    // to get the maxLeft we will  get the max from the maxLeft and the current leftPointer value
-    // then decrement leftPointer si that it keeps checking the next value to the left of current etc.
+		// to get the maxLeft we will  get the max from the maxLeft and the current leftPointer value
+		// then decrement leftPointer si that it keeps checking the next value to the left of current etc.
 		while (leftPointer >= 0) {
 			maxLeft = Math.max(maxLeft, heights[leftPointer]);
 			leftPointer--;
 		}
-    // we start the right pointer at the same place as the left and go rightward
-    while (rightPointer <= heights.length) {
+		// we start the right pointer at the same place as the left and go rightward
+		while (rightPointer <= heights.length) {
 			maxRight = Math.max(maxRight, heights[rightPointer]);
 			rightPointer++;
 		}
-    const currentWater = Math.min(maxLeft, maxRight) - heights[i]
-    if (currentWater >= 0) {
-      totalWater = totalWater + currentWater
-    }
+		const currentWater = Math.min(maxLeft, maxRight) - heights[i];
+		if (currentWater >= 0) {
+			totalWater = totalWater + currentWater;
+		}
 	}
-  return totalWater
+	return totalWater;
 };
+
+const trappingRainWaterTwoPointer = (heights) => {
+	leftPointer = 0;
+	rightPointer = heights.length - 1;
+	let totalWater = 0;
+	let maxLeft = 0;
+	let maxRight = 0;
+	while (leftPointer < rightPointer) {
+		let currentLeftHeight = heights[leftPointer];
+		let currentRightHeight = heights[rightPointer];
+		if (currentLeftHeight <= currentRightHeight) {
+			if (currentLeftHeight > maxLeft) {
+				maxLeft = currentLeftHeight;
+			} else {
+				totalWater = totalWater + (maxLeft - currentLeftHeight);
+			}
+			leftPointer++;
+		} else {
+			if (currentRightHeight > maxRight) {
+				maxRight = currentRightHeight;
+			} else {
+				totalWater = totalWater + (maxRight - currentLeftHeight);
+			}
+			rightPointer--;
+		}
+	}
+	return totalWater;
+};
+
+console.log(trappingRainWaterTwoPointer[(0, 1, 0, 2, 1, 0, 3, 1, 0, 1, 2)]);
