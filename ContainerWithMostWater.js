@@ -70,6 +70,9 @@ initialize pointers at opposite ends of the area
 we move the smaller value pointer upward because to get a larger area
 the smaller value in min calc will be the one that directly impacts area getting bigger
  we need a larger minimum number
+
+ unlike twoSum there is no calc in the first for loop so there is nothing we can cache / add D.S
+ for to reduce the time complexity we need a 2 pointer approach in this case
 */
 
 const shiftPointersMostWater = (heights) => {
