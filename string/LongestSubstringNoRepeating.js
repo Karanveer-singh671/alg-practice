@@ -45,8 +45,8 @@ const bruteForceLongestSubstring = (str) => {
 			const currentChar = str[right];
 			// if the character hasn't been seen in the substring add it to map and set it to seen (true)
 			// increment length and set longest to be max of longest and currentLength
-      // otherwise we break from the second loop and the seenChars is reset and the first for loop
-      // is incremented to the next value
+			// otherwise we break from the second loop and the seenChars is reset and the first for loop
+			// is incremented to the next value
 			if (!seenChars[currentChar]) {
 				currentLength++;
 				seenChars[currentChar] = true;
@@ -56,4 +56,44 @@ const bruteForceLongestSubstring = (str) => {
 			}
 		}
 	}
+};
+
+/*
+sliding window vs 2 pointer
+sliding window -> for a window over some porition of sequetial data then move that window
+throughout the data to capture different parts of it.
+
+"abcabcbb"
+
+use sliding window to represent the current substring
+the size of the window will increase based on the new character
+and decrease based of characters seen before
+seen characters hashmap keeps track of what character's we've seen and the index we saw them at
+*/
+
+const slidingWindowSubstringLongest = (s) => {
+	if (s.length <= 1) {
+		return s.length;
+	}
+	const seenChars = {};
+	let left = 0;
+	let longest = 0;
+	// handle right pointer movement with a for loop since will never go back
+	// and left only moves based off the interation
+	for (let right = 0; right < s.length; right++) {
+		const currentChar = s[right];
+    const prevSeenChar = seenChars[currentChar]
+    // if not in seenChars it will return undefined so the comparison fails
+    // if we have seen it in the map we want to move the left pointer to the
+    // prevSeenChar + 1
+    if(prevSeenChar >= left) {
+      left = prevSeenChar + 1
+    }
+    // when it hasn't been seen before
+    // we want to set the key of the map to be the character in the string and value as the index it is at
+    seenChars[currentChar] = right
+     // get the longest which is either the previous longest or the right - left index (length) + 1 to the character which you are at
+    longest = Math.max(longest, right-left + 1)
+	}
+  return longest
 };
