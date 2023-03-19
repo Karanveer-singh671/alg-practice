@@ -71,29 +71,25 @@ and decrease based of characters seen before
 seen characters hashmap keeps track of what character's we've seen and the index we saw them at
 */
 
-const slidingWindowSubstringLongest = (s) => {
-	if (s.length <= 1) {
-		return s.length;
-	}
-	const seenChars = {};
-	let left = 0;
-	let longest = 0;
-	// handle right pointer movement with a for loop since will never go back
-	// and left only moves based off the interation
-	for (let right = 0; right < s.length; right++) {
-		const currentChar = s[right];
-    const prevSeenChar = seenChars[currentChar]
-    // if not in seenChars it will return undefined so the comparison fails
-    // if we have seen it in the map we want to move the left pointer to the
-    // prevSeenChar + 1
-    if(prevSeenChar >= left) {
+const optimalSlidingSubstring = (s) => {
+  // hcek if the string is <= 1
+  if (s.length <= 1) return s.length
+  let longest = 0
+  let left = 0
+  let seen = {}
+  for (let right = 0; right < s.length; right++) {
+    const currentChar = s[right]
+    const prevSeenChar = seen[currentChar]
+    // if this is undefined we have not seen it if it has value we have
+    // we want to make sure that the previous seen char is greater than the left pointer
+    // if it is greater we want to move the left pointer to the prev seen char + 1
+    // so that we can find the substring that hasn't been duplicated
+    if (prevSeenChar >= left) {
       left = prevSeenChar + 1
     }
-    // when it hasn't been seen before
-    // we want to set the key of the map to be the character in the string and value as the index it is at
-    seenChars[currentChar] = right
-     // get the longest which is either the previous longest or the right - left index (length) + 1 to the character which you are at
-    longest = Math.max(longest, right-left + 1)
-	}
+      // add the value of string as key and add index as value for map
+   seen[currentChar] = right
+   longest  = Math.max(longest, right - left + 1)
+  }
   return longest
-};
+}
