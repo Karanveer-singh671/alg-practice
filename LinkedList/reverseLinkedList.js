@@ -34,4 +34,4 @@ const reverseLinkedList = (head) => {
 
 	// previous will hold the linkedList we created thus far
 	return prev;
-};
+}

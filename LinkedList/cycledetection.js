@@ -66,6 +66,9 @@ const findCycleHareTortoise = (head) => {
 			// move hare another step (2 steps total)
 			hare = hare.next;
 		}
+    // need this condition here and not for while condition because
+    // at the beginning of the loop this will be true and it will break
+    // so need to advance hare first 
 		if (tortoise === hare) {
 			// cycle found
 			break;

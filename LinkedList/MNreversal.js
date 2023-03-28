@@ -33,8 +33,6 @@ keep track of position, and current node we are operating on
 
 */
 
-const reverseLinkedList = (list, m, n) => {};
-
 const specificReversal = (head, m, n) => {
 	let currentPos = 1;
 	let currentNode = head;
