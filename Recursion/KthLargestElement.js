@@ -54,3 +54,27 @@ const getKthLargest = (array, k) => {
 	quickSort(array, 0, array.length - 1);
 	return array[indexToFind];
 };
+
+/*
+quickSelect O(n) but in the worst case will be same as quickSort e.g. reverse sorted
+O(n^2)
+tail recursive O(1)
+before quickSort we called twice (left and right side) the second call of quicksort is waiting
+for first call of quicksort to finish so it's still on the call stack. Now each time with quickSelect
+all 3 of our base cases all return (return keyword) so they will pop off the call stack (tail recursive)
+*/
+
+const quickSelect = (array, left, right, indexToFind) => {
+	// if left is same as right then 1 element do not wanna perform quicksort
+	if (left < right) {
+		const partitionIndex = partition(array, left, right);
+		if (partitionIndex === indexToFind) {
+			return array[partitionIndex];
+		} else if (indexToFind < partitionIndex) {
+			return quickSelect(array, left, partitionIndex - 1, indexToFind);
+		} else {
+			// indexToFind greater than partitionIndex only do quickSelect on the right side and not left of it
+			return quickSelect(array, partitionIndex + 1, right, indexToFind);
+		}
+	}
+};
